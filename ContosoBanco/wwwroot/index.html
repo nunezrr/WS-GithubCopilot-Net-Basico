@@ -1,0 +1,1238 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Contoso Banco - Sistema de Gestión Bancaria</title>
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+    crossorigin="anonymous"
+  />
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    rel="stylesheet"
+  />
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Source+Serif+4:wght@600;700&display=swap"
+  />
+  <style>
+    :root {
+      --azul-banco: #1a237e;
+      --azul-secundario: #0f4c8a;
+      --azul-medio: #2e5fa8;
+      --gris-claro: #f5f6fa;
+      --gris-borde: #d9dce8;
+      --texto-principal: #1f2430;
+      --texto-secundario: #4f5b7c;
+      --blanco: #ffffff;
+    }
+
+    body {
+      background:
+        radial-gradient(circle at 15% -10%, rgba(46, 95, 168, 0.12) 0%, rgba(46, 95, 168, 0) 48%),
+        radial-gradient(circle at 95% 5%, rgba(15, 76, 138, 0.12) 0%, rgba(15, 76, 138, 0) 35%),
+        linear-gradient(180deg, #fbfcff 0%, #f1f4fb 100%);
+      color: var(--texto-principal);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      font-family: "Manrope", sans-serif;
+    }
+
+    .encabezado-principal {
+      background: linear-gradient(120deg, #0f2357 0%, #1a237e 48%, #1f3d9c 100%);
+      color: #ffffff;
+      box-shadow: 0 8px 24px rgba(15, 27, 70, 0.35);
+      position: sticky;
+      top: 0;
+      z-index: 1020;
+    }
+
+    .encabezado-principal h1 {
+      letter-spacing: 0.4px;
+      font-family: "Source Serif 4", serif;
+      font-weight: 700;
+    }
+
+    .marca-banco {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 2.4rem;
+      height: 2.4rem;
+      border-radius: 0.75rem;
+      background: rgba(255, 255, 255, 0.16);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .subtitulo-encabezado {
+      color: rgba(233, 239, 255, 0.92);
+      font-size: 0.92rem;
+      margin-top: 0.25rem;
+      margin-bottom: 0;
+    }
+
+    .barra-atajos {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .atajo-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.4rem 0.75rem;
+      border-radius: 999px;
+      background-color: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      color: #ffffff;
+      font-size: 0.82rem;
+      font-weight: 600;
+    }
+
+    .tabs-navegacion .nav-link {
+      color: #dce3ff;
+      border: none;
+      border-bottom: 3px solid transparent;
+      border-radius: 0.65rem 0.65rem 0 0;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1rem;
+      transition: background-color 0.2s ease, color 0.2s ease;
+    }
+
+    .tabs-navegacion .nav-link:hover {
+      color: #ffffff;
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .tabs-navegacion .nav-link.active {
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.12);
+      border-bottom-color: #ffffff;
+    }
+
+    .contenedor-principal {
+      flex: 1;
+    }
+
+    .encabezado-seccion {
+      margin-bottom: 1rem;
+    }
+
+    .encabezado-seccion h2 {
+      margin-bottom: 0.2rem;
+      font-weight: 800;
+      color: #13254a;
+    }
+
+    .texto-contexto {
+      color: var(--texto-secundario);
+      margin-bottom: 0;
+    }
+
+    .boton-principal {
+      background: linear-gradient(120deg, #1a237e 0%, #2e5fa8 100%);
+      border: none;
+      box-shadow: 0 6px 16px rgba(26, 35, 126, 0.3);
+      font-weight: 700;
+    }
+
+    .boton-principal:hover {
+      filter: brightness(1.05);
+    }
+
+    .card-estadistica {
+      border: 1px solid #d4ddf0;
+      border-radius: 1rem;
+      background: linear-gradient(140deg, #ffffff 0%, #f8fbff 100%);
+      box-shadow: 0 10px 20px rgba(26, 35, 126, 0.08);
+      overflow: hidden;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .card-estadistica:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 16px 30px rgba(26, 35, 126, 0.15);
+    }
+
+    .card-estadistica .card-body {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .icono-estadistica {
+      width: 3rem;
+      height: 3rem;
+      border-radius: 0.9rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      color: #ffffff;
+      background: linear-gradient(130deg, var(--azul-banco), var(--azul-medio));
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+    }
+
+    .etiqueta-estadistica {
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      font-weight: 700;
+      font-size: 0.79rem;
+      color: #3b4f82;
+      margin-bottom: 0.35rem;
+    }
+
+    .valor-estadistica {
+      font-size: 2.1rem;
+      font-weight: 800;
+      color: #12265d;
+      line-height: 1;
+    }
+
+    .ayuda-estadistica {
+      color: var(--texto-secundario);
+      font-size: 0.86rem;
+    }
+
+    .seccion-panel {
+      background-color: #ffffff;
+      border: 1px solid #d4ddf0;
+      border-radius: 1rem;
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+    }
+
+    .tabla-clientes thead {
+      background: linear-gradient(180deg, #edf2fb 0%, #e7edf9 100%);
+      border-bottom: 1px solid #ccd9f0;
+    }
+
+    .tabla-clientes thead th {
+      color: #18315f;
+      font-size: 0.84rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      font-weight: 800;
+      border-bottom: none;
+      padding-top: 0.85rem;
+      padding-bottom: 0.85rem;
+      white-space: nowrap;
+    }
+
+    .tabla-clientes tbody td {
+      border-color: #e3eaf8;
+      padding-top: 0.95rem;
+      padding-bottom: 0.95rem;
+      color: #25365f;
+    }
+
+    .tabla-clientes tbody tr {
+      transition: background-color 0.18s ease, transform 0.18s ease;
+    }
+
+    .tabla-clientes tbody tr:hover {
+      background-color: #f4f8ff;
+      transform: translateY(-1px);
+    }
+
+    .tabla-clientes {
+      margin-bottom: 0;
+      border: 1px solid #d7e0f3;
+      border-radius: 0.9rem;
+      overflow: hidden;
+      background-color: #ffffff;
+    }
+
+    .tabla-clientes .btn-group .btn {
+      min-width: 90px;
+      font-weight: 600;
+    }
+
+    .insignia-tipo {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.2rem 0.55rem;
+      border-radius: 999px;
+      font-size: 0.79rem;
+      font-weight: 700;
+      background-color: #e7eefc;
+      color: #20406f;
+    }
+
+    .insignia-estado {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.2rem 0.55rem;
+      border-radius: 999px;
+      font-size: 0.79rem;
+      font-weight: 700;
+    }
+
+    .estado-activa {
+      background-color: #e6f5ec;
+      color: #0f6b3f;
+    }
+
+    .estado-inactiva {
+      background-color: #fff4d8;
+      color: #8a6600;
+    }
+
+    .estado-bloqueada {
+      background-color: #fde8ea;
+      color: #9f1f2a;
+    }
+
+    .estado-desconocida {
+      background-color: #eceff4;
+      color: #415472;
+    }
+
+    .monto-tabla {
+      font-weight: 800;
+      color: #163974;
+      white-space: nowrap;
+    }
+
+    .chip-tabla {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.25rem 0.6rem;
+      border-radius: 999px;
+      background-color: #edf2fb;
+      color: #1c3d73;
+      font-size: 0.82rem;
+      font-weight: 600;
+    }
+
+    .oculto {
+      display: none !important;
+    }
+
+    footer {
+      background-color: #eef1f8;
+      border-top: 1px solid var(--gris-borde);
+      color: #4f5b7c;
+    }
+
+    .mensaje-error {
+      border-left: 4px solid #dc3545;
+    }
+
+    .mensaje-ok {
+      border-left: 4px solid #198754;
+    }
+
+    @media (max-width: 767.98px) {
+      .encabezado-principal {
+        position: static;
+      }
+
+      .tabs-navegacion {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        white-space: nowrap;
+        padding-bottom: 0.35rem;
+      }
+
+      .tabs-navegacion .nav-link {
+        border-radius: 0.5rem;
+        border-bottom-width: 2px;
+      }
+
+      .card-estadistica .card-body {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .barra-atajos {
+        width: 100%;
+        justify-content: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="encabezado-principal">
+    <div class="container py-3 py-md-4">
+      <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
+        <div>
+          <h1 class="h3 h2-md mb-0 d-flex align-items-center gap-2">
+            <span class="marca-banco" aria-hidden="true"><i class="bi bi-bank"></i></span>
+            <span>Contoso Banco</span>
+          </h1>
+          <p class="subtitulo-encabezado">Panel de gestión bancaria y operación de clientes</p>
+        </div>
+        <div class="barra-atajos" aria-label="Accesos rápidos">
+          <span class="atajo-item"><i class="bi bi-shield-lock"></i> Seguridad</span>
+          <span class="atajo-item"><i class="bi bi-bell"></i> Notificaciones</span>
+          <span class="atajo-item"><i class="bi bi-person-circle"></i> Perfil</span>
+        </div>
+      </div>
+
+      <nav class="mt-3" aria-label="Navegación principal">
+        <ul class="nav tabs-navegacion" id="tabsSistema" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button
+              class="nav-link active"
+              id="tab-inicio"
+              data-bs-toggle="tab"
+              data-bs-target="#panel-inicio"
+              type="button"
+              role="tab"
+              aria-controls="panel-inicio"
+              aria-selected="true"
+            >
+              <i class="bi bi-house-door" aria-hidden="true"></i>
+              Inicio
+            </button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button
+              class="nav-link"
+              id="tab-clientes"
+              data-bs-toggle="tab"
+              data-bs-target="#panel-clientes"
+              type="button"
+              role="tab"
+              aria-controls="panel-clientes"
+              aria-selected="false"
+            >
+              <i class="bi bi-people" aria-hidden="true"></i>
+              Clientes
+            </button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button
+              class="nav-link"
+              id="tab-cuentas"
+              data-bs-toggle="tab"
+              data-bs-target="#panel-cuentas"
+              type="button"
+              role="tab"
+              aria-controls="panel-cuentas"
+              aria-selected="false"
+            >
+              <i class="bi bi-wallet2" aria-hidden="true"></i>
+              Cuentas
+            </button>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="contenedor-principal container my-4">
+    <div id="alertaGlobal" class="alert oculto" role="alert"></div>
+
+    <div class="tab-content" id="tabsSistemaContenido">
+      <section
+        class="tab-pane fade show active"
+        id="panel-inicio"
+        role="tabpanel"
+        aria-labelledby="tab-inicio"
+      >
+        <div class="seccion-panel p-3 p-md-4">
+          <div class="encabezado-seccion d-flex justify-content-between align-items-start flex-wrap gap-2">
+            <div>
+              <h2 class="h4"><i class="bi bi-grid-1x2-fill me-2" aria-hidden="true"></i>Resumen General</h2>
+              <p class="texto-contexto">Vista consolidada de actividad para seguimiento rápido de la operación diaria.</p>
+            </div>
+            <button id="btnRecargarInicio" class="btn btn-outline-primary btn-sm" type="button">
+              <i class="bi bi-arrow-clockwise me-1" aria-hidden="true"></i>Actualizar estadísticas
+            </button>
+          </div>
+
+          <div class="row g-3 mt-1">
+            <div class="col-12 col-md-6">
+              <article class="card card-estadistica h-100">
+                <div class="card-body">
+                  <div>
+                    <p class="etiqueta-estadistica">Total Clientes</p>
+                    <p id="totalClientes" class="valor-estadistica mb-1">-</p>
+                    <small class="ayuda-estadistica">Clientes registrados en el sistema</small>
+                  </div>
+                  <span class="icono-estadistica" aria-hidden="true"><i class="bi bi-people-fill"></i></span>
+                </div>
+              </article>
+            </div>
+
+            <div class="col-12 col-md-6">
+              <article class="card card-estadistica h-100">
+                <div class="card-body">
+                  <div>
+                    <p class="etiqueta-estadistica">Total Cuentas</p>
+                    <p id="totalCuentas" class="valor-estadistica mb-1">-</p>
+                    <small class="ayuda-estadistica">Cuentas bancarias activas</small>
+                  </div>
+                  <span class="icono-estadistica" aria-hidden="true"><i class="bi bi-wallet-fill"></i></span>
+                </div>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section
+        class="tab-pane fade"
+        id="panel-clientes"
+        role="tabpanel"
+        aria-labelledby="tab-clientes"
+      >
+        <div class="seccion-panel p-3 p-md-4">
+          <div class="encabezado-seccion d-flex justify-content-between align-items-start flex-wrap gap-2">
+            <div>
+              <h2 class="h4"><i class="bi bi-person-vcard-fill me-2" aria-hidden="true"></i>Gestión de Clientes</h2>
+              <p class="texto-contexto">Administre información de contacto y mantenimiento del catálogo de clientes.</p>
+            </div>
+            <button id="btnNuevoCliente" class="btn boton-principal" type="button" data-bs-toggle="modal" data-bs-target="#modalCliente">
+              <i class="bi bi-person-plus-fill me-1" aria-hidden="true"></i>Nuevo Cliente
+            </button>
+          </div>
+
+          <div class="table-responsive mt-2">
+            <table class="table table-hover align-middle tabla-clientes">
+              <thead>
+                <tr>
+                  <th scope="col">Id</th>
+                  <th scope="col">Nombre</th>
+                  <th scope="col">Email</th>
+                  <th scope="col">Teléfono</th>
+                  <th scope="col">Dirección</th>
+                  <th scope="col" class="text-end">Acciones</th>
+                </tr>
+              </thead>
+              <tbody id="tablaClientesBody">
+                <tr>
+                  <td colspan="6" class="text-center text-muted py-4">Cargando clientes...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section
+        class="tab-pane fade"
+        id="panel-cuentas"
+        role="tabpanel"
+        aria-labelledby="tab-cuentas"
+      >
+        <div class="seccion-panel p-3 p-md-4">
+          <div class="encabezado-seccion d-flex justify-content-between align-items-start flex-wrap gap-2">
+            <div>
+              <h2 class="h4"><i class="bi bi-wallet2 me-2" aria-hidden="true"></i>Gestión de Cuentas</h2>
+              <p class="texto-contexto">Controle cuentas bancarias por cliente con estado, tipo de cuenta y saldo actual.</p>
+            </div>
+            <button id="btnNuevaCuenta" class="btn boton-principal" type="button" data-bs-toggle="modal" data-bs-target="#modalCuenta">
+              <i class="bi bi-plus-circle me-1" aria-hidden="true"></i>Nueva Cuenta
+            </button>
+          </div>
+
+          <div class="table-responsive mt-2">
+            <table class="table table-hover align-middle tabla-clientes">
+              <thead>
+                <tr>
+                  <th scope="col">Id</th>
+                  <th scope="col">Cliente</th>
+                  <th scope="col">Número Cuenta</th>
+                  <th scope="col">Tipo</th>
+                  <th scope="col" class="text-end">Saldo</th>
+                  <th scope="col">Estado</th>
+                  <th scope="col">Apertura</th>
+                  <th scope="col" class="text-end">Acciones</th>
+                </tr>
+              </thead>
+              <tbody id="tablaCuentasBody">
+                <tr>
+                  <td colspan="8" class="text-center text-muted py-4">Cargando cuentas...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <div class="modal fade" id="modalCliente" tabindex="-1" aria-labelledby="modalClienteTitulo" aria-hidden="true">
+    <div class="modal-dialog">
+      <form id="formCliente" class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title fs-5" id="modalClienteTitulo">Nuevo Cliente</h2>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body">
+          <input type="hidden" id="clienteId" />
+
+          <div class="mb-3">
+            <label for="clienteNombre" class="form-label">Nombre</label>
+            <input type="text" class="form-control" id="clienteNombre" required maxlength="120" />
+          </div>
+
+          <div class="mb-3">
+            <label for="clienteEmail" class="form-label">Email</label>
+            <input type="email" class="form-control" id="clienteEmail" required maxlength="200" />
+          </div>
+
+          <div class="mb-3">
+            <label for="clienteTelefono" class="form-label">Teléfono</label>
+            <input type="text" class="form-control" id="clienteTelefono" required maxlength="50" />
+          </div>
+
+          <div class="mb-3">
+            <label for="clienteDireccion" class="form-label">Dirección</label>
+            <input type="text" class="form-control" id="clienteDireccion" required maxlength="250" />
+          </div>
+
+          <div id="mensajeModalCliente" class="alert alert-danger oculto mb-0" role="alert"></div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-primary">Guardar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="modal fade" id="modalCuenta" tabindex="-1" aria-labelledby="modalCuentaTitulo" aria-hidden="true">
+    <div class="modal-dialog">
+      <form id="formCuenta" class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title fs-5" id="modalCuentaTitulo">Nueva Cuenta</h2>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body">
+          <input type="hidden" id="cuentaId" />
+
+          <div class="mb-3">
+            <label for="cuentaClienteId" class="form-label">Cliente Asociado</label>
+            <select class="form-select" id="cuentaClienteId" required>
+              <option value="">Cargando clientes...</option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label for="cuentaNumero" class="form-label">Número de Cuenta</label>
+            <input type="text" class="form-control" id="cuentaNumero" required maxlength="40" />
+          </div>
+
+          <div class="mb-3">
+            <label for="cuentaTipo" class="form-label">Tipo de Cuenta</label>
+            <select class="form-select" id="cuentaTipo" required>
+              <option value="">Seleccione una opción</option>
+              <option value="Ahorro">Ahorro</option>
+              <option value="Corriente">Corriente</option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label for="cuentaSaldo" class="form-label">Saldo Inicial / Actual</label>
+            <input type="number" class="form-control" id="cuentaSaldo" required min="0" step="0.01" />
+          </div>
+
+          <div class="mb-3">
+            <label for="cuentaEstado" class="form-label">Estado</label>
+            <select class="form-select" id="cuentaEstado" required>
+              <option value="">Seleccione una opción</option>
+              <option value="Activa">Activa</option>
+              <option value="Bloqueada">Bloqueada</option>
+              <option value="Inactiva">Inactiva</option>
+            </select>
+          </div>
+
+          <div id="mensajeModalCuenta" class="alert alert-danger oculto mb-0" role="alert"></div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-primary">Guardar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <footer class="py-3 mt-auto">
+    <div class="container text-center">
+      <small>© Contoso Banco - Sistema de Gestión Bancaria</small>
+    </div>
+  </footer>
+
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"
+  ></script>
+
+  <script>
+    const apiBase = "/api";
+    const totalClientesEl = document.getElementById("totalClientes");
+    const totalCuentasEl = document.getElementById("totalCuentas");
+    const tablaClientesBody = document.getElementById("tablaClientesBody");
+    const tablaCuentasBody = document.getElementById("tablaCuentasBody");
+    const alertaGlobal = document.getElementById("alertaGlobal");
+    const formCliente = document.getElementById("formCliente");
+    const formCuenta = document.getElementById("formCuenta");
+    const modalClienteElemento = document.getElementById("modalCliente");
+    const modalCuentaElemento = document.getElementById("modalCuenta");
+    const modalCliente = new bootstrap.Modal(modalClienteElemento);
+    const modalCuenta = new bootstrap.Modal(modalCuentaElemento);
+    const mensajeModalCliente = document.getElementById("mensajeModalCliente");
+    const mensajeModalCuenta = document.getElementById("mensajeModalCuenta");
+
+    const clienteIdEl = document.getElementById("clienteId");
+    const clienteNombreEl = document.getElementById("clienteNombre");
+    const clienteEmailEl = document.getElementById("clienteEmail");
+    const clienteTelefonoEl = document.getElementById("clienteTelefono");
+    const clienteDireccionEl = document.getElementById("clienteDireccion");
+    const modalClienteTitulo = document.getElementById("modalClienteTitulo");
+
+    const cuentaIdEl = document.getElementById("cuentaId");
+    const cuentaClienteIdEl = document.getElementById("cuentaClienteId");
+    const cuentaNumeroEl = document.getElementById("cuentaNumero");
+    const cuentaTipoEl = document.getElementById("cuentaTipo");
+    const cuentaSaldoEl = document.getElementById("cuentaSaldo");
+    const cuentaEstadoEl = document.getElementById("cuentaEstado");
+    const modalCuentaTitulo = document.getElementById("modalCuentaTitulo");
+    let clientesEnMemoria = [];
+
+    const formateadorMoneda = new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD",
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    });
+
+    const formateadorFecha = new Intl.DateTimeFormat("es-CR", {
+      dateStyle: "medium"
+    });
+
+    function mostrarAlerta(mensaje, tipo = "danger") {
+      alertaGlobal.className = `alert alert-${tipo} ${tipo === "danger" ? "mensaje-error" : "mensaje-ok"}`;
+      alertaGlobal.textContent = mensaje;
+      alertaGlobal.classList.remove("oculto");
+
+      window.setTimeout(() => {
+        alertaGlobal.classList.add("oculto");
+      }, 5000);
+    }
+
+    function mostrarErrorModal(mensaje) {
+      mensajeModalCliente.textContent = mensaje;
+      mensajeModalCliente.classList.remove("oculto");
+    }
+
+    function ocultarErrorModal() {
+      mensajeModalCliente.classList.add("oculto");
+      mensajeModalCliente.textContent = "";
+    }
+
+    function mostrarErrorModalCuenta(mensaje) {
+      mensajeModalCuenta.textContent = mensaje;
+      mensajeModalCuenta.classList.remove("oculto");
+    }
+
+    function ocultarErrorModalCuenta() {
+      mensajeModalCuenta.classList.add("oculto");
+      mensajeModalCuenta.textContent = "";
+    }
+
+    function escaparAtributo(valor) {
+      return String(valor).replace(/"/g, "&quot;");
+    }
+
+    function obtenerNombreClienteAsociado(clienteId) {
+      const cliente = clientesEnMemoria.find((item) => Number(item.id) === Number(clienteId));
+      return cliente?.nombre ?? `Cliente ${clienteId}`;
+    }
+
+    function obtenerEstiloEstado(estado) {
+      const estadoNormalizado = String(estado ?? "").toLowerCase();
+
+      if (estadoNormalizado === "activa") {
+        return {
+          clase: "estado-activa",
+          icono: "bi-check-circle-fill"
+        };
+      }
+
+      if (estadoNormalizado === "inactiva") {
+        return {
+          clase: "estado-inactiva",
+          icono: "bi-pause-circle-fill"
+        };
+      }
+
+      if (estadoNormalizado === "bloqueada") {
+        return {
+          clase: "estado-bloqueada",
+          icono: "bi-lock-fill"
+        };
+      }
+
+      return {
+        clase: "estado-desconocida",
+        icono: "bi-question-circle-fill"
+      };
+    }
+
+    function pintarOpcionesClientesCuenta(clienteSeleccionado = "") {
+      if (!Array.isArray(clientesEnMemoria) || clientesEnMemoria.length === 0) {
+        cuentaClienteIdEl.innerHTML = "<option value=''>No hay clientes disponibles</option>";
+        return;
+      }
+
+      const opciones = clientesEnMemoria.map((cliente) => {
+        const seleccionado = String(cliente.id) === String(clienteSeleccionado) ? "selected" : "";
+        return `<option value="${cliente.id}" ${seleccionado}>${cliente.nombre} (Id ${cliente.id})</option>`;
+      }).join("");
+
+      cuentaClienteIdEl.innerHTML = `
+        <option value="">Seleccione un cliente</option>
+        ${opciones}
+      `;
+    }
+
+    async function asegurarClientesParaSelector(clienteSeleccionado = "") {
+      if (Array.isArray(clientesEnMemoria) && clientesEnMemoria.length > 0) {
+        pintarOpcionesClientesCuenta(clienteSeleccionado);
+        return;
+      }
+
+      try {
+        const clientes = await obtenerJson(`${apiBase}/clientes`);
+        clientesEnMemoria = Array.isArray(clientes) ? clientes : [];
+        pintarOpcionesClientesCuenta(clienteSeleccionado);
+      } catch (error) {
+        cuentaClienteIdEl.innerHTML = "<option value=''>No fue posible cargar clientes</option>";
+        console.error(error);
+      }
+    }
+
+    function formatearMonto(monto) {
+      const valorNumerico = Number(monto);
+      if (Number.isNaN(valorNumerico)) {
+        return "-";
+      }
+
+      return formateadorMoneda.format(valorNumerico);
+    }
+
+    function formatearFecha(fecha) {
+      if (!fecha) {
+        return "-";
+      }
+
+      const fechaConvertida = new Date(fecha);
+      if (Number.isNaN(fechaConvertida.getTime())) {
+        return "-";
+      }
+
+      return formateadorFecha.format(fechaConvertida);
+    }
+
+    async function obtenerJson(url, opciones = {}) {
+      const respuesta = await fetch(url, {
+        headers: {
+          "Content-Type": "application/json"
+        },
+        ...opciones
+      });
+
+      if (!respuesta.ok) {
+        const textoError = await respuesta.text();
+        throw new Error(textoError || "No se pudo completar la operación con el servidor.");
+      }
+
+      if (respuesta.status === 204) {
+        return null;
+      }
+
+      return await respuesta.json();
+    }
+
+    function pintarClientes(clientes) {
+      if (!Array.isArray(clientes) || clientes.length === 0) {
+        tablaClientesBody.innerHTML = `
+          <tr>
+            <td colspan="6" class="text-center text-muted py-4">No hay clientes registrados.</td>
+          </tr>
+        `;
+        return;
+      }
+
+      const filas = clientes.map((cliente) => {
+        const id = cliente.id ?? "-";
+        const nombre = cliente.nombre ?? "Sin nombre";
+        const email = cliente.email ?? "Sin email";
+        const telefono = cliente.telefono ?? "Sin teléfono";
+        const direccion = cliente.direccion ?? "Sin dirección";
+        const idValido = Number.isInteger(id) || /^\d+$/.test(String(id));
+
+        return `
+          <tr>
+            <td><span class="chip-tabla"><i class="bi bi-hash" aria-hidden="true"></i>${id}</span></td>
+            <td>${nombre}</td>
+            <td>${email}</td>
+            <td>${telefono}</td>
+            <td>${direccion}</td>
+            <td class="text-end">
+              <div class="btn-group btn-group-sm" role="group" aria-label="Acciones de cliente">
+                <button class="btn btn-outline-primary btn-editar-cliente" type="button"
+                  data-id="${idValido ? id : ""}"
+                  data-nombre="${escaparAtributo(nombre)}"
+                  data-email="${escaparAtributo(email)}"
+                  data-telefono="${escaparAtributo(telefono)}"
+                  data-direccion="${escaparAtributo(direccion)}"
+                  ${idValido ? "" : "disabled"}
+                ><i class="bi bi-pencil-square me-1" aria-hidden="true"></i>Editar</button>
+                <button class="btn btn-outline-danger btn-eliminar-cliente" type="button" data-id="${idValido ? id : ""}" ${idValido ? "" : "disabled"}><i class="bi bi-trash me-1" aria-hidden="true"></i>Eliminar</button>
+              </div>
+            </td>
+          </tr>
+        `;
+      }).join("");
+
+      tablaClientesBody.innerHTML = filas;
+    }
+
+    function pintarCuentas(cuentas) {
+      if (!Array.isArray(cuentas) || cuentas.length === 0) {
+        tablaCuentasBody.innerHTML = `
+          <tr>
+            <td colspan="8" class="text-center text-muted py-4">No hay cuentas registradas.</td>
+          </tr>
+        `;
+        return;
+      }
+
+      const filas = cuentas.map((cuenta) => {
+        const id = cuenta.id ?? "-";
+        const clienteId = cuenta.clienteId ?? "-";
+        const clienteNombre = obtenerNombreClienteAsociado(clienteId);
+        const numeroCuenta = cuenta.numeroCuenta ?? "Sin número";
+        const tipoCuenta = cuenta.tipoCuenta ?? "Sin tipo";
+        const saldo = cuenta.saldo ?? 0;
+        const estado = cuenta.estado ?? "Sin estado";
+        const estiloEstado = obtenerEstiloEstado(estado);
+        const fechaApertura = cuenta.fechaApertura ?? "";
+        const idValido = Number.isInteger(id) || /^\d+$/.test(String(id));
+
+        return `
+          <tr>
+            <td><span class="chip-tabla"><i class="bi bi-hash" aria-hidden="true"></i>${id}</span></td>
+            <td>${clienteNombre}</td>
+            <td>${numeroCuenta}</td>
+            <td><span class="insignia-tipo"><i class="bi bi-credit-card-2-front" aria-hidden="true"></i>${tipoCuenta}</span></td>
+            <td class="text-end monto-tabla">${formatearMonto(saldo)}</td>
+            <td><span class="insignia-estado ${estiloEstado.clase}"><i class="bi ${estiloEstado.icono}" aria-hidden="true"></i>${estado}</span></td>
+            <td>${formatearFecha(fechaApertura)}</td>
+            <td class="text-end">
+              <div class="btn-group btn-group-sm" role="group" aria-label="Acciones de cuenta">
+                <button class="btn btn-outline-primary btn-editar-cuenta" type="button"
+                  data-id="${idValido ? id : ""}"
+                  data-cliente-id="${clienteId}"
+                  data-numero-cuenta="${escaparAtributo(numeroCuenta)}"
+                  data-tipo-cuenta="${escaparAtributo(tipoCuenta)}"
+                  data-saldo="${saldo}"
+                  data-estado="${escaparAtributo(estado)}"
+                  ${idValido ? "" : "disabled"}
+                ><i class="bi bi-pencil-square me-1" aria-hidden="true"></i>Editar</button>
+                <button class="btn btn-outline-danger btn-eliminar-cuenta" type="button" data-id="${idValido ? id : ""}" ${idValido ? "" : "disabled"}><i class="bi bi-trash me-1" aria-hidden="true"></i>Eliminar</button>
+              </div>
+            </td>
+          </tr>
+        `;
+      }).join("");
+
+      tablaCuentasBody.innerHTML = filas;
+    }
+
+    async function cargarClientes() {
+      try {
+        const clientes = await obtenerJson(`${apiBase}/clientes`);
+        clientesEnMemoria = Array.isArray(clientes) ? clientes : [];
+        pintarOpcionesClientesCuenta();
+        pintarClientes(clientes);
+        totalClientesEl.textContent = Array.isArray(clientes) ? clientes.length : 0;
+      } catch (error) {
+        tablaClientesBody.innerHTML = `
+          <tr>
+            <td colspan="6" class="text-center text-danger py-4">No fue posible cargar los clientes.</td>
+          </tr>
+        `;
+        totalClientesEl.textContent = "-";
+        mostrarAlerta("Ocurrió un problema al cargar los clientes. Inténtelo de nuevo en unos segundos.");
+        console.error(error);
+      }
+    }
+
+    async function cargarTotalCuentas() {
+      try {
+        const cuentas = await obtenerJson(`${apiBase}/cuentas`);
+        totalCuentasEl.textContent = Array.isArray(cuentas) ? cuentas.length : 0;
+      } catch (error) {
+        totalCuentasEl.textContent = "-";
+        mostrarAlerta("No se pudo cargar el total de cuentas en este momento.");
+        console.error(error);
+      }
+    }
+
+    async function cargarCuentas() {
+      try {
+        const cuentas = await obtenerJson(`${apiBase}/cuentas`);
+        pintarCuentas(cuentas);
+        totalCuentasEl.textContent = Array.isArray(cuentas) ? cuentas.length : 0;
+      } catch (error) {
+        tablaCuentasBody.innerHTML = `
+          <tr>
+            <td colspan="8" class="text-center text-danger py-4">No fue posible cargar las cuentas.</td>
+          </tr>
+        `;
+        totalCuentasEl.textContent = "-";
+        mostrarAlerta("Ocurrió un problema al cargar las cuentas. Inténtelo nuevamente.");
+        console.error(error);
+      }
+    }
+
+    async function cargarEstadisticas() {
+      await cargarClientes();
+      await cargarCuentas();
+    }
+
+    function limpiarFormularioCliente() {
+      formCliente.reset();
+      clienteIdEl.value = "";
+      modalClienteTitulo.textContent = "Nuevo Cliente";
+      ocultarErrorModal();
+    }
+
+    function editarCliente(id, nombre, email, telefono, direccion) {
+      clienteIdEl.value = id;
+      clienteNombreEl.value = nombre;
+      clienteEmailEl.value = email;
+      clienteTelefonoEl.value = telefono;
+      clienteDireccionEl.value = direccion;
+      modalClienteTitulo.textContent = "Editar Cliente";
+      ocultarErrorModal();
+      modalCliente.show();
+    }
+
+    async function limpiarFormularioCuenta() {
+      formCuenta.reset();
+      cuentaIdEl.value = "";
+      modalCuentaTitulo.textContent = "Nueva Cuenta";
+      ocultarErrorModalCuenta();
+      await asegurarClientesParaSelector();
+    }
+
+    async function editarCuenta(id, clienteId, numeroCuenta, tipoCuenta, saldo, estado) {
+      cuentaIdEl.value = id;
+      await asegurarClientesParaSelector(clienteId);
+      cuentaClienteIdEl.value = clienteId;
+      cuentaNumeroEl.value = numeroCuenta;
+      cuentaTipoEl.value = tipoCuenta;
+      cuentaSaldoEl.value = saldo;
+      cuentaEstadoEl.value = estado;
+      modalCuentaTitulo.textContent = "Editar Cuenta";
+      ocultarErrorModalCuenta();
+      modalCuenta.show();
+    }
+
+    async function eliminarCliente(id) {
+      if (!confirm("¿Desea eliminar este cliente? Esta acción no se puede deshacer.")) {
+        return;
+      }
+
+      try {
+        await obtenerJson(`${apiBase}/clientes/${id}`, { method: "DELETE" });
+        mostrarAlerta("Cliente eliminado correctamente.", "success");
+        await cargarClientes();
+      } catch (error) {
+        mostrarAlerta("No fue posible eliminar el cliente. Verifique e intente nuevamente.");
+        console.error(error);
+      }
+    }
+
+    async function eliminarCuenta(id) {
+      if (!confirm("¿Desea eliminar esta cuenta? Esta acción no se puede deshacer.")) {
+        return;
+      }
+
+      try {
+        await obtenerJson(`${apiBase}/cuentas/${id}`, { method: "DELETE" });
+        mostrarAlerta("Cuenta eliminada correctamente.", "success");
+        await cargarCuentas();
+      } catch (error) {
+        mostrarAlerta("No fue posible eliminar la cuenta. Verifique e intente nuevamente.");
+        console.error(error);
+      }
+    }
+
+    async function guardarCliente(evento) {
+      evento.preventDefault();
+      ocultarErrorModal();
+
+      const id = clienteIdEl.value.trim();
+      const nombre = clienteNombreEl.value.trim();
+      const email = clienteEmailEl.value.trim();
+      const telefono = clienteTelefonoEl.value.trim();
+      const direccion = clienteDireccionEl.value.trim();
+
+      if (!nombre || !email || !telefono || !direccion) {
+        mostrarErrorModal("Debe completar todos los campos requeridos.");
+        return;
+      }
+
+      const datosCliente = {
+        nombre,
+        email,
+        telefono,
+        direccion
+      };
+
+      try {
+        if (id) {
+          await obtenerJson(`${apiBase}/clientes/${id}`, {
+            method: "PUT",
+            body: JSON.stringify(datosCliente)
+          });
+          mostrarAlerta("Cliente actualizado correctamente.", "success");
+        } else {
+          await obtenerJson(`${apiBase}/clientes`, {
+            method: "POST",
+            body: JSON.stringify(datosCliente)
+          });
+          mostrarAlerta("Cliente creado correctamente.", "success");
+        }
+
+        modalCliente.hide();
+        limpiarFormularioCliente();
+        await cargarClientes();
+      } catch (error) {
+        mostrarErrorModal("No fue posible guardar el cliente. Revise los datos e intente nuevamente.");
+        console.error(error);
+      }
+    }
+
+    async function guardarCuenta(evento) {
+      evento.preventDefault();
+      ocultarErrorModalCuenta();
+
+      const id = cuentaIdEl.value.trim();
+      const clienteId = Number(cuentaClienteIdEl.value);
+      const numeroCuenta = cuentaNumeroEl.value.trim();
+      const tipoCuenta = cuentaTipoEl.value;
+      const saldo = Number(cuentaSaldoEl.value);
+      const estado = cuentaEstadoEl.value;
+
+      if (!clienteId || !numeroCuenta || !tipoCuenta || Number.isNaN(saldo) || !estado) {
+        mostrarErrorModalCuenta("Debe completar todos los campos requeridos.");
+        return;
+      }
+
+      if (saldo < 0) {
+        mostrarErrorModalCuenta("El saldo no puede ser negativo.");
+        return;
+      }
+
+      const datosCuenta = {
+        clienteId,
+        numeroCuenta,
+        tipoCuenta,
+        saldo,
+        estado
+      };
+
+      try {
+        if (id) {
+          await obtenerJson(`${apiBase}/cuentas/${id}`, {
+            method: "PUT",
+            body: JSON.stringify(datosCuenta)
+          });
+          mostrarAlerta("Cuenta actualizada correctamente.", "success");
+        } else {
+          await obtenerJson(`${apiBase}/cuentas`, {
+            method: "POST",
+            body: JSON.stringify(datosCuenta)
+          });
+          mostrarAlerta("Cuenta creada correctamente.", "success");
+        }
+
+        modalCuenta.hide();
+        limpiarFormularioCuenta();
+        await cargarCuentas();
+      } catch (error) {
+        mostrarErrorModalCuenta("No fue posible guardar la cuenta. Revise los datos e intente nuevamente.");
+        console.error(error);
+      }
+    }
+
+    document.getElementById("btnNuevoCliente").addEventListener("click", limpiarFormularioCliente);
+    document.getElementById("btnNuevaCuenta").addEventListener("click", limpiarFormularioCuenta);
+    document.getElementById("btnRecargarInicio").addEventListener("click", cargarEstadisticas);
+    formCliente.addEventListener("submit", guardarCliente);
+    formCuenta.addEventListener("submit", guardarCuenta);
+
+    tablaClientesBody.addEventListener("click", (evento) => {
+      const botonEditar = evento.target.closest(".btn-editar-cliente");
+      if (botonEditar) {
+        editarCliente(
+          botonEditar.dataset.id,
+          botonEditar.dataset.nombre,
+          botonEditar.dataset.email,
+          botonEditar.dataset.telefono,
+          botonEditar.dataset.direccion
+        );
+        return;
+      }
+
+      const botonEliminar = evento.target.closest(".btn-eliminar-cliente");
+      if (botonEliminar) {
+        eliminarCliente(botonEliminar.dataset.id);
+      }
+    });
+
+    tablaCuentasBody.addEventListener("click", (evento) => {
+      const botonEditar = evento.target.closest(".btn-editar-cuenta");
+      if (botonEditar) {
+        editarCuenta(
+          botonEditar.dataset.id,
+          botonEditar.dataset.clienteId,
+          botonEditar.dataset.numeroCuenta,
+          botonEditar.dataset.tipoCuenta,
+          botonEditar.dataset.saldo,
+          botonEditar.dataset.estado
+        );
+        return;
+      }
+
+      const botonEliminar = evento.target.closest(".btn-eliminar-cuenta");
+      if (botonEliminar) {
+        eliminarCuenta(botonEliminar.dataset.id);
+      }
+    });
+
+    modalClienteElemento.addEventListener("hidden.bs.modal", () => {
+      limpiarFormularioCliente();
+    });
+
+    modalCuentaElemento.addEventListener("hidden.bs.modal", () => {
+      limpiarFormularioCuenta();
+    });
+
+    cargarEstadisticas();
+  </script>
+</body>
+</html>

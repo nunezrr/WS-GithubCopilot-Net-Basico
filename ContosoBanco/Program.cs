@@ -137,3 +137,7 @@ cuentas.MapDelete("/{id}", (int id, ContosoBanco.Services.CuentaServicio servici
     .Produces(StatusCodes.Status404NotFound);
 
 app.Run();
+
+public partial class Program
+{
+}

@@ -35,3 +35,5 @@ D:\Documentos Usuarios\nunezrr\OneDrive - Banco Central de Costa Rica\Documentos
 D:\Documentos Usuarios\nunezrr\OneDrive - Banco Central de Costa Rica\Documentos\Visual Studio Code\workshop-githubcopilot-basico-net\ContosoBanco\obj\Debug\net10.0\ContosoBanco.pdb
 D:\Documentos Usuarios\nunezrr\OneDrive - Banco Central de Costa Rica\Documentos\Visual Studio Code\workshop-githubcopilot-basico-net\ContosoBanco\obj\Debug\net10.0\ContosoBanco.genruntimeconfig.cache
 D:\Documentos Usuarios\nunezrr\OneDrive - Banco Central de Costa Rica\Documentos\Visual Studio Code\workshop-githubcopilot-basico-net\ContosoBanco\obj\Debug\net10.0\ref\ContosoBanco.dll
+D:\Documentos Usuarios\nunezrr\OneDrive - Banco Central de Costa Rica\Documentos\Visual Studio Code\workshop-githubcopilot-basico-net\ContosoBanco\bin\Debug\net10.0\ContosoBanco.staticwebassets.runtime.json
+D:\Documentos Usuarios\nunezrr\OneDrive - Banco Central de Costa Rica\Documentos\Visual Studio Code\workshop-githubcopilot-basico-net\ContosoBanco\obj\Debug\net10.0\compressed\4lyoq7bkz0-{0}-3v508olpov-3v508olpov.gz
